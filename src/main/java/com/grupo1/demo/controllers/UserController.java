@@ -57,7 +57,6 @@ public class UserController {
             throw new IllegalArgumentException("Role is required");
         }
     
-        // Si el rol es válido, continúa con la actualización
         User updatedUser = userService.adminUpdateUser(id, userDetails);
         return ResponseEntity.ok(updatedUser);
     }

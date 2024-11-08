@@ -19,12 +19,10 @@ public class HistoriaMedicaService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    // Obtener historia médica por pacienteId
     public Optional<HistoriaMedica> getHistoriaMedicaByPacienteId(Long pacienteId) {
         return historiaMedicaRepository.findByPacienteId(pacienteId);
     }
 
-    // Crear una nueva historia médica para un paciente
     public HistoriaMedica createHistoriaMedica(Long pacienteId) {
         Optional<Paciente> pacienteOpt = pacienteRepository.findById(pacienteId);
         if (pacienteOpt.isPresent()) {
@@ -41,12 +39,10 @@ public class HistoriaMedicaService {
         return null;
     }
 
-    // Agregar antecedentes médicos a la historia médica
     public HistoriaMedica addAntecedentesMedicos(Long pacienteId, List<String> antecedentesMedicos) {
         Optional<HistoriaMedica> historiaMedicaOpt = historiaMedicaRepository.findByPacienteId(pacienteId);
         if (historiaMedicaOpt.isPresent()) {
             HistoriaMedica historiaMedica = historiaMedicaOpt.get();
-            // Agregar antecedentes médicos sin duplicados
             for (String antecedente : antecedentesMedicos) {
                 if (!historiaMedica.getAntecedentesMedicos().contains(antecedente)) {
                     historiaMedica.getAntecedentesMedicos().add(antecedente);
@@ -57,12 +53,10 @@ public class HistoriaMedicaService {
         return null;
     }
 
-    // Agregar alergias a la historia médica
     public HistoriaMedica addAlergias(Long pacienteId, List<String> alergias) {
         Optional<HistoriaMedica> historiaMedicaOpt = historiaMedicaRepository.findByPacienteId(pacienteId);
         if (historiaMedicaOpt.isPresent()) {
             HistoriaMedica historiaMedica = historiaMedicaOpt.get();
-            // Agregar alergias sin duplicados
             for (String alergia : alergias) {
                 if (!historiaMedica.getAlergias().contains(alergia)) {
                     historiaMedica.getAlergias().add(alergia);
@@ -73,12 +67,10 @@ public class HistoriaMedicaService {
         return null;
     }
 
-    // Agregar cirugías anteriores a la historia médica
     public HistoriaMedica addCirugiasAnteriores(Long pacienteId, List<String> cirugias) {
         Optional<HistoriaMedica> historiaMedicaOpt = historiaMedicaRepository.findByPacienteId(pacienteId);
         if (historiaMedicaOpt.isPresent()) {
             HistoriaMedica historiaMedica = historiaMedicaOpt.get();
-            // Agregar cirugías anteriores sin duplicados
             for (String cirugia : cirugias) {
                 if (!historiaMedica.getCirugiasAnteriores().contains(cirugia)) {
                     historiaMedica.getCirugiasAnteriores().add(cirugia);
@@ -89,12 +81,10 @@ public class HistoriaMedicaService {
         return null;
     }
 
-    // Agregar antecedentes familiares a la historia médica
     public HistoriaMedica addAntecedentesFamiliares(Long pacienteId, List<String> antecedentesFamiliares) {
         Optional<HistoriaMedica> historiaMedicaOpt = historiaMedicaRepository.findByPacienteId(pacienteId);
         if (historiaMedicaOpt.isPresent()) {
             HistoriaMedica historiaMedica = historiaMedicaOpt.get();
-            // Agregar antecedentes familiares sin duplicados
             for (String antecedente : antecedentesFamiliares) {
                 if (!historiaMedica.getAntecedentesFamiliares().contains(antecedente)) {
                     historiaMedica.getAntecedentesFamiliares().add(antecedente);
@@ -105,7 +95,6 @@ public class HistoriaMedicaService {
         return null;
     }
 
-    // Actualizar antecedentes médicos en la historia médica
     public HistoriaMedica updateAntecedentesMedicos(Long pacienteId, List<String> antecedentesMedicos) {
         Optional<HistoriaMedica> historiaMedicaOpt = historiaMedicaRepository.findByPacienteId(pacienteId);
         if (historiaMedicaOpt.isPresent()) {
@@ -116,7 +105,6 @@ public class HistoriaMedicaService {
         return null;
     }
 
-    // Actualizar alergias en la historia médica
     public HistoriaMedica updateAlergias(Long pacienteId, List<String> alergias) {
         Optional<HistoriaMedica> historiaMedicaOpt = historiaMedicaRepository.findByPacienteId(pacienteId);
         if (historiaMedicaOpt.isPresent()) {
@@ -127,7 +115,6 @@ public class HistoriaMedicaService {
         return null;
     }
 
-    // Actualizar cirugías anteriores en la historia médica
     public HistoriaMedica updateCirugiasAnteriores(Long pacienteId, List<String> cirugiasAnteriores) {
         Optional<HistoriaMedica> historiaMedicaOpt = historiaMedicaRepository.findByPacienteId(pacienteId);
         if (historiaMedicaOpt.isPresent()) {
@@ -138,7 +125,6 @@ public class HistoriaMedicaService {
         return null;
     }
 
-    // Actualizar antecedentes familiares en la historia médica
     public HistoriaMedica updateAntecedentesFamiliares(Long pacienteId, List<String> antecedentesFamiliares) {
         Optional<HistoriaMedica> historiaMedicaOpt = historiaMedicaRepository.findByPacienteId(pacienteId);
         if (historiaMedicaOpt.isPresent()) {
@@ -149,7 +135,6 @@ public class HistoriaMedicaService {
         return null;
     }
 
-    // Eliminar un atributo específico de la historia médica
     public HistoriaMedica deleteAtributoHistoria(Long pacienteId, String atributo, String valor) {
         Optional<HistoriaMedica> historiaMedicaOpt = historiaMedicaRepository.findByPacienteId(pacienteId);
         if (historiaMedicaOpt.isPresent()) {
@@ -168,14 +153,13 @@ public class HistoriaMedicaService {
                     historiaMedica.getAntecedentesFamiliares().remove(valor);
                     break;
                 default:
-                    return null; // Si el atributo no es válido
+                    return null; 
             }
             return historiaMedicaRepository.save(historiaMedica);
         }
         return null;
     }
 
-    // Eliminar la historia médica completa de un paciente
     public boolean deleteHistoriaMedica(Long pacienteId) {
         Optional<HistoriaMedica> historiaMedicaOpt = historiaMedicaRepository.findByPacienteId(pacienteId);
         if (historiaMedicaOpt.isPresent()) {

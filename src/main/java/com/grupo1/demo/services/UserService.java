@@ -82,12 +82,10 @@ public class UserService {
     public User adminUpdateUser(Long id, User userDetails) {
         return userRepository.findById(id).map(existingUser -> {
     
-            // Actualizar solo el campo de la contraseña si se proporciona
             if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
                 existingUser.setPassword(passwordEncoder.encode(userDetails.getPassword()));
             }
     
-            // Actualizar otros campos solo si se proporciona un valor
             existingUser.setFirstName(
                 Optional.ofNullable(userDetails.getFirstName()).orElse(existingUser.getFirstName())
             );
